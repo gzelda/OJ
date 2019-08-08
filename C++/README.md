@@ -73,5 +73,75 @@
 
 
 
+## 设计模式
+
+### 单例
+
+    template <class SingletonClass >
+    class NormalSingleton{
+        public:
+            static SingletonClass * Instance(){
+                static SingletonClass* instance = 0;
+                if( !instance ){
+                    instance = new SingletonClass;
+                }
+                return instance;
+            }
+            SingletonClass* operator ->() { return Instance(); }
+            const SingletonClass* operator ->() const { return Instance(); }
+        private:
+            NormalSingleton(){ }
+            ~NormalSingleton(){ }
+    };
 
 
+    typedef NormalSingleton< CBestPlayer >
+    BestPlayer; // singleton pattern
+    #define BEST_PLAYER BestPlayer::Instance()
+
+    //void A() const {}   const指向的是this
+
+
+SSL使用的方法没有顾及线程安全的问题（if判断），并且只new不delete
+
+    class Singleton
+    {
+    public:
+        ~Singleton(){
+            std::cout<<"destructor called!"<<std::endl;
+        }
+
+        static Singleton& get_instance(){
+            static Singleton instance;
+            return instance;
+        }
+    private:
+        Singleton(const Singleton&);
+        Singleton& operator=(const Singleton&);
+        Singleton(){
+            std::cout<<"constructor called!"<<std::endl;
+        }
+    };
+
+    int main(int argc, char *argv[])
+    {
+        Singleton& instance_1 = Singleton::get_instance();
+        Singleton& instance_2 = Singleton::get_instance();
+        return 0;
+    }
+
+
+改造成：
+
+    template <class SingletonClass>
+    class MeyersSingleton{
+        public:
+            static SingletonClass& get_instance(){
+                static SingletonClass instance;
+                return instance;
+            }
+    };
+
+
+    typedef MeyersSingleton<A> A_agent;
+    A_agent.get_instance();
