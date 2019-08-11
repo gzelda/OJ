@@ -67,7 +67,10 @@
 
 [无敌构造俄罗斯套娃看你究竟会不会看懂就懂了的例子](https://www.cnblogs.com/xkfz007/archive/2012/05/11/2496447.html)
 
+### new/delete malloc/free
+malloc与free是C++/C语言的标准库函数，而new/delete只是C++的运算符（在词法过程中会被引导成特定的过程）。
 
+//TODO 底层的存储方式
 
 
 
@@ -157,3 +160,4 @@ SSL使用的方法没有顾及线程安全的问题（if判断），并且只new
 ### 链表
 - 反转链表 //TODO
 - 归并链表 //TODO
+
